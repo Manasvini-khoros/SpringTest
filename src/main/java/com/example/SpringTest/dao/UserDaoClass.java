@@ -9,10 +9,6 @@ import java.util.List;
 
 public class UserDaoClass implements UserDao{
 
-
-
-
-
     List<User> users = new ArrayList<User>();
 
     Connection conc;
@@ -31,13 +27,7 @@ public class UserDaoClass implements UserDao{
 
     }
 
-
-
-
-
-    //GETALL
-
-    public List<User> getAll() throws SQLException {
+    public List<User> getUsers() throws SQLException {
 
         Statement stat= conc.createStatement();
 
@@ -51,6 +41,12 @@ public class UserDaoClass implements UserDao{
 
             user.setName(res.getString("name"));
 
+            user.setAge(res.getInt("age"));
+
+            user.setEmail(res.getString("email"));
+
+            user.setCountry(res.getString("country"));
+
             users.add(user);
 
         }
@@ -58,22 +54,7 @@ public class UserDaoClass implements UserDao{
         return users;
 
     }
-
-
-
-    //GETONE WITH ID
-
-    //@Override
-
-    public List<User> getone(int id) throws SQLException {
-
-        /*Userdata udi= new Userdataimpl();
-
-        udi.getAll();
-
-        users.stream() ;*/
-
-
+    public List<User> getUser(int id) throws SQLException {
 
         PreparedStatement stat = conc.prepareStatement("select * from user where id= ?");
 
@@ -89,6 +70,12 @@ public class UserDaoClass implements UserDao{
 
             user.setName(res.getString("name"));
 
+            user.setAge(res.getInt("age"));
+
+            user.setEmail(res.getString("email"));
+
+            user.setCountry(res.getString("country"));
+
             users.add(user);
 
         }
@@ -96,62 +83,51 @@ public class UserDaoClass implements UserDao{
         return users;
 
     }
+     public void insertUser(User user) throws SQLException {
 
-
-
-    //@Override
-
-    public void create(User user) throws SQLException {
-
-        PreparedStatement stat = conc.prepareStatement("insert into user (id,name) values(?,?)");
+        PreparedStatement stat = conc.prepareStatement("insert into user (id,name,age,email,country) values(?,?,?,?,?)");
 
         stat.setInt(1, user.getId());
 
         stat.setString(2,user.getName());
 
+        stat.setInt(3,user.getAge());
+
+        stat.setString(4,user.getEmail());
+
+        stat.setString(5,user.getCountry());
+
         stat.executeUpdate();
-
-
-
     }
 
+    public void updateUser(User user, /*String*/int id) throws SQLException {
 
-
-    //@Override
-
-    public void update(User user, String id) throws SQLException {
-
-        PreparedStatement stat = conc.prepareStatement(" UPDATE user SET name = ? WHERE id = ?;");
+        PreparedStatement stat = conc.prepareStatement(" UPDATE user SET name = ?,age = ?,email = ?,country = ? WHERE id = ?;");
 
         stat.setString(1,user.getName());
 
-        stat.setInt(4, Integer.parseInt(id));
+        stat.setInt(2,user.getAge());
+
+        stat.setString(3,user.getEmail());
+
+        stat.setString(4,user.getCountry());
+
+        //stat.setInt(2, Integer.parseInt(id));
+        stat.setInt(5,id);
 
         stat.executeUpdate();
 
     }
 
-
-
-
-
-    //DELETE WITH ID
-
-    //@Override
-
-    public int delete(int id) throws SQLException {
+    public String deleteUser(int id) throws SQLException {
 
         PreparedStatement stat = conc.prepareStatement("delete from user where id= ?;");
 
-
-
         stat.setInt(1, id);
 
-        int res=stat.executeUpdate();
+        /*int res=*/stat.executeUpdate();
 
-
-
-        return 0;
+        return "deleted";
 
     }
 
