@@ -125,7 +125,7 @@ public class UserDaoClass implements UserDao{
 
         stat.setInt(1, id);
 
-        /*int res=*/stat.executeUpdate();
+        int res=stat.executeUpdate();
 
         return "deleted";
 
