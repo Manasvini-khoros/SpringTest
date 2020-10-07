@@ -118,7 +118,7 @@ public class UserDaoClass implements UserDao{
         stat.executeUpdate();
 
     }
-
+    /* test branch*/
     public String deleteUser(int id) throws SQLException {
 
         PreparedStatement stat = conc.prepareStatement("delete from user where id= ?;");

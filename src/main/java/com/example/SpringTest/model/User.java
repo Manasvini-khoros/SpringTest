@@ -65,10 +65,10 @@ public class User {
 
                 "id=" + id +
 
-                ", name='" + name +
-                ", age='" + age +
-                ", email='" + email +
-                ", country='" + country +
+                ", name=" + name +
+                ", age=" + age +
+                ", email=" + email +
+                ", country=" + country +
 
                 '}';
 
